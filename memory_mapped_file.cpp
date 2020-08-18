@@ -93,12 +93,12 @@ namespace memory_mapped_file
     #endif
     }
 
-    read_only_mmf::read_only_mmf(char const* pathname, bool map_all)
+    read_only_mmf::read_only_mmf(char_type const* pathname, bool map_all)
     {
         open(pathname, map_all);
     }
 
-    void read_only_mmf::open(char const* pathname, bool map_all)
+    void read_only_mmf::open(char_type const* pathname, bool map_all)
     {
         if (! pathname) return;
         if (is_open()) close();
@@ -143,14 +143,14 @@ namespace memory_mapped_file
         offset_ = offset;
     }
 
-    writable_mmf::writable_mmf(char const* pathname,
+    writable_mmf::writable_mmf(char_type const* pathname,
         memory_mapped_file::mmf_exists_mode exists_mode,
         memory_mapped_file::mmf_doesnt_exist_mode doesnt_exist_mode)
     {
         open(pathname, exists_mode, doesnt_exist_mode);
     }
 
-    void writable_mmf::open(char const* pathname,
+    void writable_mmf::open(char_type const* pathname,
         memory_mapped_file::mmf_exists_mode exists_mode,
         memory_mapped_file::mmf_doesnt_exist_mode doesnt_exist_mode)
     {

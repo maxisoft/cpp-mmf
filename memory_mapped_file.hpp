@@ -4,6 +4,12 @@
 
 namespace memory_mapped_file
 {
+#if defined(_WIN32) && defined(UNICODE)
+    using char_type = wchar_t;
+#else
+    using char_type = char;
+#endif
+
     unsigned int mmf_granularity();
 
     class base_mmf
@@ -49,8 +55,8 @@ namespace memory_mapped_file
     class read_only_mmf: public base_mmf
     {
     public:
-        explicit read_only_mmf(char const* pathname = 0, bool map_all = true);
-        void open(char const* pathname, bool map_all = true);
+        explicit read_only_mmf(char_type const* pathname = 0, bool map_all = true);
+        void open(char_type const* pathname, bool map_all = true);
         char const* data() const { return data_; }
         void map(size_t offset = 0, size_t size = 0);
     };
@@ -72,10 +78,10 @@ namespace memory_mapped_file
     class writable_mmf: public base_mmf
     {
     public:
-        explicit writable_mmf(char const* pathname = 0,
+        explicit writable_mmf(char_type const* pathname = 0,
             mmf_exists_mode exists_mode = if_exists_fail,
             mmf_doesnt_exist_mode doesnt_exist_mode = if_doesnt_exist_create);
-        void open(char const* pathname,
+        void open(char_type const* pathname,
             mmf_exists_mode exists_mode = if_exists_fail,
             mmf_doesnt_exist_mode doesnt_exist_mode = if_doesnt_exist_create);
         char* data() { return data_; }
